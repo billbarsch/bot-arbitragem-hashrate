@@ -1,0 +1,85 @@
+{
+  "versao_configuracao": 1,
+  "diretorio_privado": null,
+  "fuso_horario": null,
+  "modo_operacao": "somente_leitura",
+  "contas": [
+    {
+      "rotulo": null,
+      "plataforma": "hashsell",
+      "usuario": null,
+      "referencia_senha": null,
+      "referencia_chave_interface": null
+    },
+    {
+      "rotulo": null,
+      "plataforma": "rentalhash",
+      "usuario": null,
+      "referencia_senha": null,
+      "referencia_chave_interface": null
+    }
+  ],
+  "carteiras_saque": [],
+  "destinos_processamento": [],
+  "ordens_gerenciadas": [],
+  "autorizacoes": {
+    "verificar": true,
+    "cadastrar_pool": false,
+    "aumentar_preco": false,
+    "diminuir_preco": false,
+    "redimensionar_velocidade": false,
+    "adicionar_credito": false,
+    "criar_ordem": false,
+    "recriar_ordem": false,
+    "cancelar_ordem": false,
+    "solicitar_saque": false
+  },
+  "limites": {
+    "lance_maximo_dolares_por_petahash_segundo_dia": null,
+    "margem_minima_percentual": null,
+    "incremento_lance_dolares_por_petahash_segundo_dia": null,
+    "variacao_maxima_lance_percentual_por_execucao": null,
+    "tolerancia_lance_percentual": null,
+    "velocidade_maxima_petahashes_por_segundo": null,
+    "orcamento_maximo_ordem_dolares": null,
+    "gasto_maximo_diario_dolares": null,
+    "reserva_minima_carteira_dolares": null,
+    "validade_maxima_cotacao_segundos": null
+  },
+  "recargas": {
+    "cobertura_minima_horas": null,
+    "cobertura_alvo_horas": null,
+    "valor_fixo_dolares": null,
+    "valor_maximo_por_operacao_dolares": null,
+    "valor_maximo_diario_dolares": null
+  },
+  "dimensionamento": {
+    "habilitado": false,
+    "faixas_margem_velocidade": [],
+    "confirmacoes_consecutivas_necessarias": null,
+    "variacao_maxima_velocidade_percentual_por_execucao": null,
+    "zona_sem_ajuste_percentual": null
+  },
+  "saques": {
+    "carteira_destino_rotulo": null,
+    "modo_valor": null,
+    "valor_fixo_dolares": null,
+    "saldo_minimo_acionamento_dolares": null,
+    "valor_maximo_por_operacao_dolares": null,
+    "valor_maximo_diario_dolares": null,
+    "taxa_maxima_dolares": null,
+    "quantidade_maxima_diaria": null,
+    "intervalo_minimo_horas": null,
+    "horarios": []
+  },
+  "agendamento": {
+    "habilitado": false,
+    "identificador_conversa": null,
+    "identificador_agendamento": null,
+    "intervalo_minutos": null,
+    "horarios": [],
+    "notificar_mudancas_relevantes": true,
+    "notificar_toda_execucao": false
+  },
+  "pendencias": []
+}

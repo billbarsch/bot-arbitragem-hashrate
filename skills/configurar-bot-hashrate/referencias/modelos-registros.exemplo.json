@@ -1,0 +1,44 @@
+{
+  "modelo_carteira_saque": {
+    "rotulo": null,
+    "destinatario": null,
+    "plataforma_destino": null,
+    "moeda": null,
+    "rede": null,
+    "endereco": null,
+    "identificador_adicional": null,
+    "identificador_adicional_exigido": null,
+    "compatibilidade_confirmada_em": null,
+    "confirmada_pelo_usuario": false
+  },
+  "modelo_destino_processamento": {
+    "rotulo": null,
+    "conta_rentalhash_rotulo": null,
+    "algoritmo": null,
+    "protocolo": null,
+    "servidor": null,
+    "porta": null,
+    "nome_conexao": null,
+    "nome_trabalhador": null,
+    "referencia_senha_processamento": null,
+    "identificador_pool_hashsell": null,
+    "conexao_verificada_em": null
+  },
+  "modelo_ordem_gerenciada": {
+    "rotulo": null,
+    "identificador_ordem": null,
+    "conta_hashsell_rotulo": null,
+    "destino_processamento_rotulo": null,
+    "tipo_ordem": null,
+    "limites_especificos": {},
+    "recargas_especificas": {},
+    "recriar_automaticamente": false,
+    "orcamento_recriacao_dolares": null,
+    "identificador_ordem_anterior": null
+  },
+  "modelo_faixa_dimensionamento": {
+    "margem_minima_inclusiva_percentual": null,
+    "margem_maxima_exclusiva_percentual": null,
+    "velocidade_alvo_petahashes_por_segundo": null
+  }
+}
