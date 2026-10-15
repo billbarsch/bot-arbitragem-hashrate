@@ -5,7 +5,7 @@ description: Aumenta o lance de uma ordem HashSell autorizada para buscar entreg
 
 # Aumentar lance da HashSell
 
-Leia [as regras comuns](../configurar-bot-hashrate/referencias/regras-operacionais.md), [os cálculos](../configurar-bot-hashrate/referencias/calculos.md) e os limites privados da ordem. Sem autorização suficiente, prepare o formulário e deixe a confirmação para o usuário.
+Leia [as regras comuns](../configurar-bot-hashrate/referencias/regras-operacionais.md), [os cálculos](../configurar-bot-hashrate/referencias/calculos.md), [as regras de plataforma observadas](../configurar-bot-hashrate/referencias/regras-da-plataforma.md) e os limites privados da ordem. Sem autorização suficiente, prepare o formulário e deixe a confirmação para o usuário.
 
 1. Navegue para `https://www.hashsell.com/orders` e abra a ordem selecionada. Confira conta, destino, situação, lance, limite e entrega. Diagnostique se a disputa de preço é a causa; aumento não corrige credenciais inválidas, ordem encerrada ou saldo inexistente.
 2. Leia uma referência atual de entrega para **essa velocidade**, taxa de consumo e pagamento RentalHash da conta destinatária. Calcule o alvo com o incremento autorizado e a precisão do formulário. Não adote incremento, bônus ou taxa fixos de outro usuário.

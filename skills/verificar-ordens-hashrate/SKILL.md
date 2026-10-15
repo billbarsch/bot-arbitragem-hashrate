@@ -5,7 +5,7 @@ description: Consulta ordens, entrega, saldos, custos, taxa de recebimento e mar
 
 # Verificar ordens e margem
 
-Esta skill é **somente leitura**. Sugerir ajuste não autoriza executá-lo. Leia [as regras comuns](../configurar-bot-hashrate/referencias/regras-operacionais.md), [os cálculos](../configurar-bot-hashrate/referencias/calculos.md) e a configuração privada.
+Esta skill é **somente leitura**. Sugerir ajuste não autoriza executá-lo. Leia [as regras comuns](../configurar-bot-hashrate/referencias/regras-operacionais.md), [os cálculos](../configurar-bot-hashrate/referencias/calculos.md), [as regras de plataforma observadas](../configurar-bot-hashrate/referencias/regras-da-plataforma.md) e a configuração privada.
 
 1. Navegue para `https://www.hashsell.com/orders`; confira identidade, filtros e paginação. Leia a lista completa das ordens relevantes. Separe ordens gerenciadas, outras ativas, encerradas e as que estão esperando entrega. Não selecione automaticamente todas as ordens para mutação.
 2. Abra os detalhes das ordens selecionadas. Registre lance e unidade, limite de velocidade, entrega atual e amostras recentes, posição quando disponível, piso de entrega para o tamanho, corte, referência hashprice, saldo restante, duração e prazo máximo. Uma ordem viva pode estar sem entrega; uma leitura isolada não prova falha persistente.

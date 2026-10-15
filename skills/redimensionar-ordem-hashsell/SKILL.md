@@ -5,7 +5,7 @@ description: Ajusta a velocidade máxima de uma ordem HashSell usando margem atu
 
 # Redimensionar velocidade
 
-Leia [as regras comuns](../configurar-bot-hashrate/referencias/regras-operacionais.md), [os cálculos](../configurar-bot-hashrate/referencias/calculos.md) e a política de dimensionamento privada. Sem faixas autorizadas, apenas simule alternativas; não invente uma tabela de velocidade.
+Leia [as regras comuns](../configurar-bot-hashrate/referencias/regras-operacionais.md), [os cálculos](../configurar-bot-hashrate/referencias/calculos.md), [as regras de plataforma observadas](../configurar-bot-hashrate/referencias/regras-da-plataforma.md) e a política de dimensionamento privada. Sem faixas autorizadas, apenas simule alternativas; não invente uma tabela de velocidade.
 
 1. Navegue para a ordem selecionada em `https://www.hashsell.com/orders`. Confira conta, destino, velocidade atual, lance, entrega, saldo e prazo máximo.
 2. Calcule a margem atual com o pagamento e bônus aplicáveis. Use as faixas locais que ligam margem a velocidade. Respeite confirmação por verificações consecutivas, zona sem ajuste, rampa por execução e teto de PH/s definidos pelo usuário.
