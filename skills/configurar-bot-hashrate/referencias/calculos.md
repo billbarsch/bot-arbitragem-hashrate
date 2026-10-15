@@ -20,6 +20,8 @@ Quando a taxa é adicional sobre o consumo, `custo_unitario = lance × (1 + taxa
 
 Para margem mínima sobre custo: `teto_economico_lance = pagamento_efetivo / ((1 + taxa_consumo) × (1 + margem_minima))`.
 
+**Limiar de perda**: `lance_de_perda = pagamento_efetivo / (1 + taxa_consumo)`. No `lance_de_perda` a margem é zero — o que a HashSell cobra iguala o que a RentalHash paga. Acima dele cada PH/s entregue é prejuízo; abaixo, lucro. Entre o limiar de perda e o teto econômico a ordem ainda paga, só rende menos que o alvo do usuário. Piso de entrega, `lance_de_perda` e `teto_economico_lance` são três números diferentes e a direção do ajuste precisa citar os três: subir acima do teto econômico é violar a margem mínima, subir acima de `lance_de_perda` é operar no vermelho.
+
 O teto operacional é o menor entre esse teto econômico e o teto de lance autorizado. Taxas fixas de criação e saque reduzem o lucro do ciclo: deduza-as da receita projetada antes de afirmar que a margem líquida atende à política. Sem horizonte/volume conhecido, relate a margem unitária **antes das taxas fixas**, sem chamar de líquida.
 
 Preço alvo de entrega: `referencia_entrega + incremento_autorizado`, arredondado para a precisão aceita. Use o mínimo para o tamanho solicitado quando disponível; caso contrário, a referência atual de corte. Sem corte, avalie a indicação de capacidade e a prévia da ordem; hashprice sozinho não prova o piso de entrega. Se o preço necessário superar o teto, não aumente o lance.
