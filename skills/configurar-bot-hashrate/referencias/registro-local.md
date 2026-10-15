@@ -42,6 +42,8 @@ Campos mínimos: `quando` (ISO com fuso), `execucao`, `conta`, `ordem`, `acao`, 
 
 **Carimbo de tempo é o valor local do fuso declarado, nunca um instante UTC rotulado com o sufixo do fuso.** Se o único relógio disponível devolver UTC, converta antes de escrever; anexar `-03:00` a um valor UTC adianta a linha em três horas. O mesmo instante deve aparecer idêntico no log e nos campos do estado (`permitido_a_partir`, `ultima_reducao_em`, `valida_ate`), porque é a partir deles que a próxima rodada decide se a janela de espera abriu — um carimbo adiantado faz a escada esperar três horas a mais, um atrasado faz duas rodadas salvarem na mesma janela.
 
+**Formato aceito é o ISO estrito com dois pontos no fuso: `AAAA-MM-DDTHH:MM:SS-03:00`.** Nada de vírgula de milissegundos herdada do relógio da máquina (`2026-01-01T02:55:03,385-03:00`), nada de `Z` em campo de fuso local, nada de data sem hora. O campo é escrito por uma rodada e parseado por outra: o `Date` que rejeita a vírgula devolve `Invalid Date`, e a leitura inválida faz a rodada tratar a janela como fechada — duas reduções no mesmo minuto, na mesma ordem, contra a trava da plataforma. Se a ferramenta de data só produz milissegundos, descarte-os (`…SS`) antes de gravar, e confira que o valor escrito volta a ser lido como o mesmo instante.
+
 Vocabulário de `acao` para o log ficar pesquisável:
 
 | `acao` | Quando usar |
