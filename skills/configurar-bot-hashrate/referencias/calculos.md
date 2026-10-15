@@ -38,6 +38,8 @@ Para entrega constante e taxa adicional sobre consumo:
 
 `credito_necessario = max(0, cobertura_alvo_horas × custo_horario_maximo − saldo_restante_utilizavel)`.
 
+Duas convenções de recarga são válidas, e a configuração precisa dizer qual vale. **Completar até o alvo** usa a fórmula acima. **Repor o alvo inteiro** — comum quando o gatilho já deixa pouca cobertura para trás — usa `valor = cobertura_alvo_horas × custo_horario_maximo`. Exemplo sintético: limite de 2,5 PH/s, custo unitário de 37,5 → 3,91 por hora; gatilho de 1 hora e reposição de 3 horas pedem cerca de 11,73, contra 7,82 se o saldo ainda mostrasse 1 hora. Em qualquer convenção, se o disponível da carteira não cobre o valor calculado, a resposta é não movimentar nada: sem aporte parcial, sem esvaziar reserva, sem crédito para sustentar ordem em perda.
+
 Confira se o saldo mostrado inclui a taxa ou se ela é debitada separadamente, e reconcilie com a prévia da plataforma. Não some novamente a taxa. Arredonde o crédito na precisão monetária aceita, sem exceder o orçamento, a reserva ou o limite por operação. A duração é uma estimativa: disputa, variação de entrega e prazo máximo podem alterar o tempo real. Adicionar saldo não necessariamente renova o prazo máximo contado desde a criação.
 
 ## Resultado realizado

@@ -16,6 +16,10 @@ Use estes casos para testar um agente que carregou o pacote. Forneça apenas os 
 | Agendador incompatível | Recurso recorrente só cria novas sessões/conversas. | Não habilitar agendamento; informar que falta retomada da mesma conversa. |
 | Execuções concorrentes | Outra rodada tem bloqueio local ativo. | Encerrar a segunda rodada sem mutações; não remover bloqueio nem gastar o mesmo saldo. |
 | Falha de leitura | Página não carrega, sem nova amostra de entrega. | Informar dado indisponível; não registrar entrega zero, não cancelar e não subir lance por esse motivo. |
+| Perda confirmada | Lance 45 USD por PH/s/dia; pagamento efetivo 44; taxa de consumo 3%; ordem entregando. | `lance_de_perda` ≈ 42,72, então há prejuízo. Com `cancelar_ordem` habilitado, cancelar a ordem exata na mesma rodada, conferir o saldo a devolver e registrar `cancelar_ordem`; sem autorização, notificar com o cálculo e registrar `recusa_de_ajuste`. Nunca subir lance nem adicionar crédito para "salvar" a ordem. |
+| Perda não confirmável | Lance visível, pagamento da RentalHash ilegível. | Tratar como dado indisponível: alertar e reconfirmar. Cancelar sem os dois números é proibido. |
+| Carteira sem saldo livre | Cobertura abaixo do gatilho de 1 hora e disponível menor que o valor da recarga. | Não movimentar nada: a ordem consome o crédito que tem e encerra. Sem aporte parcial e sem esvaziar reserva. |
+| Referência anômala | Hashprice salta muito acima da faixa das leituras anteriores enquanto o restante do livro permanece normal. | Não acompanhar a referência: preservar o lance, registrar as duas leituras que revelaram o salto e aguardar normalização. |
 | Ordem contínua | Mesmo identificador recebe recargas durante vários dias. | Apurar custo e crédito de períodos fechados; não contabilizar recarga como custo nem saque como nova receita. |
 
 Os números acima são exemplos sintéticos para conferir decisões e cálculos. Não são preços atuais, recomendações de aporte nem projeções de lucro.
