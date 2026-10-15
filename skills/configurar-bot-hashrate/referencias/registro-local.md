@@ -6,6 +6,8 @@ Todos os arquivos deste procedimento ficam no diretório privado escolhido na co
 
 Mantenha `estado-execucao.json` com versão, conversa autorizada, última verificação, cotação observada, ordens selecionadas, contadores por período, agendamento existente e operações pendentes. Não guarde senhas, códigos temporários, cookies ou tokens nele.
 
+A cotação da RentalHash é um campo do estado, não uma memória da conversa. Grave-a em `cotacao_rentalhash_vigente` com `lida_em`, `valida_ate` (calculada por `validade_maxima_cotacao_segundos`), o valor efetivo por PH/s/dia, o nível de fidelidade e a `fonte` da leitura, e derive dela `calculos_vigor` com `taxa_consumo`, `lance_de_perda`, `teto_economico` e os alvos de escada por ordem. **Toda rodada que não conseguir renderizar o painel da RentalHash consulta esses dois campos antes de declarar o pagamento indisponível** — painel ilegível não apaga a última leitura dentro da validade, e um recorde de "ilegível" não significa que nunca houve leitura se a própria rodada gravou a cotação. Só depois de vencida a validade o pagamento volta a ser dado indisponível. Ao ler o painel com sucesso, substitua o campo na hora, com horário e fonte; cotação boa que não foi gravada equivale a cotação inexistente para a próxima rodada.
+
 Antes de uma execução recorrente, adquira uma exclusividade local por configuração/conjunto de contas. Use o mecanismo atômico que o ambiente oferecer. Registre proprietário, início e validade. Uma segunda execução consulta o bloqueio e encerra sem ações quando outra está ativa. Não remova bloqueio apenas porque está antigo: confira que a execução anterior terminou e que não há operação pendente. Sem mecanismo confiável de exclusividade, não habilite mutações recorrentes concorrentes.
 
 Antes de confirmar uma operação, persista uma intenção com identificador único, conta, ordem/destino, ação, valor, horário, autorização, limites conferidos e estado `preparada`. Esse identificador permite reconciliar; não presuma que a plataforma possui um campo de prevenção de duplicatas. Depois do envio, registre `enviada`, `confirmada`, `aguardando_confirmacao`, `incerta`, `bloqueada` ou `falhou`, conforme a evidência.
@@ -27,7 +29,7 @@ Acrescente eventos em `registro-operacoes.jsonl`, sem apagar os anteriores, usan
 
 O arquivo é o **log da operação**, lido por uma pessoa para responder "o que o agente fez e por quê". Toda rodada escreve pelo menos uma linha, inclusive a que não alterou nada. Cada linha usa o mesmo conjunto de chaves — não invente nomes novos a cada execução, porque isso quebra a consulta por campo.
 
-Campos mínimos: `quando` (ISO com fuso), `execucao`, `conta`, `ordem`, `acao`, `resultado`, `resumo` (uma frase, sem jargão), `antes`, `depois`, `motivo`.
+Campos mínimos: `quando` (ISO com fuso), `execucao`, `conta`, `ordem`, `acao`, `resultado`, `resumo` (uma frase, sem jargão), `antes`, `depois`, `motivo`. São os nomes de todas as rodadas, inclusive as recorrentes: uma linha com `em`/`conversa` no lugar de `quando`/`execucao` quebra a consulta por campo, mesmo que o conteúdo esteja certo.
 
 Vocabulário de `acao` para o log ficar pesquisável:
 
@@ -38,7 +40,7 @@ Vocabulário de `acao` para o log ficar pesquisável:
 | `recusa_de_ajuste` | A direção estava certa, mas teto econômico, margem mínima, passo, espera ou a guarda de anomalia impediram a mudança. |
 | `criar_ordem` / `recriar_ordem` / `cancelar_ordem` | Ordem criada, recriada ou cancelada — e também a decisão de **não** cancelar, registrada como `recusa_de_ajuste` com `motivo` explicando que o cancelamento foi considerado para evitar perda. |
 | `adicionar_credito` / `solicitar_saque` | Movimentação autorizada e executada. |
-| `bloqueio` | Exclusividade ocupada por outra execução, ou pagamento/cotação ilegível: a rodada encerra sem agir. |
+| `bloqueio` | Exclusividade ocupada por outra execução; ou cotação vencida e painel ilegível, o que encerra a rodada na subida — a descida em escada continua permitida. |
 | `configuracao` | Mudança fora das ordens: autorização concedida ou revogada, limite definido, agendamento criado ou reescrito, pool cadastrada. Registre antes e depois do que mudou. |
 | `problema` | Login expirado, entrega perdida, saldo sem cobertura, divergência de extrato, campo fora do esperado, resultado incerto a reconciliar. |
 
