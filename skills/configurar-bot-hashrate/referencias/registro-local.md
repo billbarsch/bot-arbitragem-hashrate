@@ -24,6 +24,7 @@ Acrescente eventos em `registro-operacoes.jsonl`, sem apagar os anteriores, usan
 - data, hora, fuso e fonte da leitura;
 - conta, ordem e ação;
 - preço, velocidade, saldo e taxa antes/depois, com unidades;
+- **percentual de lucro (margem) da ordem e o pagamento que o produziu**, como campos, não como comentário;
 - motivo, autorização e limites aplicados;
 - situação observada, identificador do pedido e comprovante quando houver.
 
@@ -32,6 +33,12 @@ Acrescente eventos em `registro-operacoes.jsonl`, sem apagar os anteriores, usan
 O arquivo é o **log da operação**, lido por uma pessoa para responder "o que o agente fez e por quê". Toda rodada escreve pelo menos uma linha, inclusive a que não alterou nada. Cada linha usa o mesmo conjunto de chaves — não invente nomes novos a cada execução, porque isso quebra a consulta por campo.
 
 Campos mínimos: `quando` (ISO com fuso), `execucao`, `conta`, `ordem`, `acao`, `resultado`, `resumo` (uma frase, sem jargão), `antes`, `depois`, `motivo`. São os nomes de todas as rodadas, inclusive as recorrentes: uma linha com `em`/`conversa` no lugar de `quando`/`execucao` quebra a consulta por campo, mesmo que o conteúdo esteja certo.
+
+**Toda linha que diz respeito a dinheiro traz também `margem_percentual` e `pagamento_utilizado`** — `verificacao`, `aumentar_lance`, `diminuir_lance`, `recusa_de_ajuste`, `cancelar_ordem` e `adicionar_credito`. A margem é o número que responde "esta ordem está lucrando?"; ela precisa ser **campo consultável**, não prosa dentro de `resumo`, porque é por ele que se compara rodada a rodada e se detecta a margem virar negativa. Anote:
+
+- `margem_percentual`: lucro percentual esperado da ordem com o lance daquela linha (`pagamento_utilizado / (lance × (1 + taxa_consumo)) − 1`, em porcentagem, uma ou duas casas). Em linha de ajuste de lance, é a margem **resultante**, depois do salvamento — a do lance antigo já está na linha anterior.
+- `pagamento_utilizado`: o valor efetivo por PH/s/dia que produziu essa margem, com o horário da leitura. Sem esse campo a margem da linha não é verificável depois: duas rodadas podem reportar 9 % a partir de pagamentos diferentes, e só a cotação gravada no estado mostra qual delas estava certa.
+- Pagamento ilegível e dentro da validade do estado: use `cotacao_rentalhash_vigente` e registre em `motivo` que a margem veio da cotação anterior e de quando ela foi lida. Margem que não se pode calcular é `margem_percentual: null` com o motivo, nunca um número chutado.
 
 **Carimbo de tempo é o valor local do fuso declarado, nunca um instante UTC rotulado com o sufixo do fuso.** Se o único relógio disponível devolver UTC, converta antes de escrever; anexar `-03:00` a um valor UTC adianta a linha em três horas. O mesmo instante deve aparecer idêntico no log e nos campos do estado (`permitido_a_partir`, `ultima_reducao_em`, `valida_ate`), porque é a partir deles que a próxima rodada decide se a janela de espera abriu — um carimbo adiantado faz a escada esperar três horas a mais, um atrasado faz duas rodadas salvarem na mesma janela.
 
@@ -51,8 +58,8 @@ Vocabulário de `acao` para o log ficar pesquisável:
 Exemplo de duas linhas seguidas:
 
 ```
-{"quando":"2026-01-01T10:11:00-03:00","execucao":"R-0001","conta":"hashsell-principal","ordem":"HS-XXXXXX","acao":"verificacao","resultado":"nenhuma_acao","antes":"40,2500","depois":"40,2500","resumo":"Li as duas ordens, a carteira e a RentalHash; o lance já estava coerente, não mexi.","motivo":"Lance acima do piso e margem 8,5% acima do mínimo de 1%."}
-{"quando":"2026-01-01T10:22:00-03:00","execucao":"R-0002","conta":"hashsell-principal","ordem":"HS-XXXXXX","acao":"aumentar_lance","resultado":"confirmada","antes":"40,2500","depois":"40,8000","resumo":"Ordem perdeu entrega; subi o lance ao piso informado pela plataforma, dentro do teto de 43,25.","motivo":"Piso de entrega 40,80; pagamento RentalHash 45,00 lido agora; margem resultante 7,1%."}
+{"quando":"2026-01-01T10:11:00-03:00","execucao":"R-0001","conta":"hashsell-principal","ordem":"HS-XXXXXX","acao":"verificacao","resultado":"nenhuma_acao","antes":"40,2500","depois":"40,2500","margem_percentual":8.5,"pagamento_utilizado":"45,00 lida às 10:08","resumo":"Li as duas ordens, a carteira e a RentalHash; o lance já estava coerente, não mexi.","motivo":"Lance acima do piso e margem 8,5% acima do mínimo de 1%."}
+{"quando":"2026-01-01T10:22:00-03:00","execucao":"R-0002","conta":"hashsell-principal","ordem":"HS-XXXXXX","acao":"aumentar_lance","resultado":"confirmada","antes":"40,2500","depois":"40,8000","margem_percentual":7.1,"pagamento_utilizado":"45,00 lida às 10:20","resumo":"Ordem perdeu entrega; subi o lance ao piso informado pela plataforma, dentro do teto de 43,25.","motivo":"Piso de entrega 40,80; pagamento RentalHash 45,00 lido agora; margem resultante 7,1%."}
 ```
 
 `resumo` descreve o fato e o número, não a intenção: "subi o lance de 40,25 para 40,80 porque a ordem ficou sem entrega" serve; "ajustei conforme a política" não serve. Registros com `resultado: incerta` ou `falhou` exigem linha extra quando forem reconciliados, apontando o identificador da intenção original.
