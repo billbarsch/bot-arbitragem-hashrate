@@ -1,6 +1,6 @@
 ---
 name: agendar-bot-hashrate
-description: Cria, atualiza ou remove recorrência do bot HashSell e RentalHash usando o agendador disponível, sempre retomando a mesma conversa. Use quando o usuário pedir acompanhamento ou operação periódica.
+description: Cria, atualiza ou remove recorrência do bot HashSell e RentalHash usando o agendador disponível, sempre retomando a mesma conversa, com intervalo mínimo de 11 minutos e o nível de permissão mais alto que o ambiente oferecer. Use quando o usuário pedir acompanhamento ou operação periódica.
 ---
 
 # Agendar na mesma conversa

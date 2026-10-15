@@ -33,6 +33,8 @@ O arquivo é o **log da operação**, lido por uma pessoa para responder "o que 
 
 Campos mínimos: `quando` (ISO com fuso), `execucao`, `conta`, `ordem`, `acao`, `resultado`, `resumo` (uma frase, sem jargão), `antes`, `depois`, `motivo`. São os nomes de todas as rodadas, inclusive as recorrentes: uma linha com `em`/`conversa` no lugar de `quando`/`execucao` quebra a consulta por campo, mesmo que o conteúdo esteja certo.
 
+**Carimbo de tempo é o valor local do fuso declarado, nunca um instante UTC rotulado com o sufixo do fuso.** Se o único relógio disponível devolver UTC, converta antes de escrever; anexar `-03:00` a um valor UTC adianta a linha em três horas. O mesmo instante deve aparecer idêntico no log e nos campos do estado (`permitido_a_partir`, `ultima_reducao_em`, `valida_ate`), porque é a partir deles que a próxima rodada decide se a janela de espera abriu — um carimbo adiantado faz a escada esperar três horas a mais, um atrasado faz duas rodadas salvarem na mesma janela.
+
 Vocabulário de `acao` para o log ficar pesquisável:
 
 | `acao` | Quando usar |
