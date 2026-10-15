@@ -39,6 +39,7 @@ Vocabulário de `acao` para o log ficar pesquisável:
 | `criar_ordem` / `recriar_ordem` / `cancelar_ordem` | Ordem criada, recriada ou cancelada — e também a decisão de **não** cancelar, registrada como `recusa_de_ajuste` com `motivo` explicando que o cancelamento foi considerado para evitar perda. |
 | `adicionar_credito` / `solicitar_saque` | Movimentação autorizada e executada. |
 | `bloqueio` | Exclusividade ocupada por outra execução, ou pagamento/cotação ilegível: a rodada encerra sem agir. |
+| `configuracao` | Mudança fora das ordens: autorização concedida ou revogada, limite definido, agendamento criado ou reescrito, pool cadastrada. Registre antes e depois do que mudou. |
 | `problema` | Login expirado, entrega perdida, saldo sem cobertura, divergência de extrato, campo fora do esperado, resultado incerto a reconciliar. |
 
 Exemplo de duas linhas seguidas:
