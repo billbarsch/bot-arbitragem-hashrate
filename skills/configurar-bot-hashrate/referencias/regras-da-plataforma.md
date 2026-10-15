@@ -26,6 +26,14 @@ Sem data de observação, não use a linha como autorização de mutação.
 - O nível de fidelidade **pausa** quando a potência semanal sai da faixa de estabilidade e nunca cai; isso muda o bônus disponível, não o histórico creditado.
 - Saque: mínimo e taxa da rede aparecem na própria tela de saque, junto do prazo estimado de conclusão. Em 2026-10-14 a tela indicava mínimo de US$ 10,00, taxa de US$ 2,00 e prazo de 24 a 48 horas. Tratou pedido como pendente, não como dinheiro recebido.
 
+## Leitura anômala de referência
+
+O preço de referência da HashSell reflete o que o mercado está pedindo naquele instante, e o instante pode estar errado. Já foi observada uma leitura de referência saltando para mais de dez vezes a faixa das leituras anteriores na mesma sessão, com o restante do livro de ofertas ainda na faixa antiga e o corte sem fechamento — ou seja, a exigência de "piso" veio de um lance isolado no topo do livro, não de um movimento generalizado.
+
+Nessas leituras, a ordem aparece como "sem entrega" e o campo "menor lance que entrega o limite" passa a exigir o valor inflado. **Isso não é alvo de ajuste.** Trate como dado suspeito: preserve o lance, registre as duas leituras que revelaram o salto, avise o usuário e aguarde a normalização. Verificar a profundidade do livro antes de confiar no piso separa mercado caro de leitura quebrada.
+
+Uma ordem sem entrega não consome saldo. A pressão para "fazer voltar a rodar" não tem custo zero: pagar o piso inflado multiplica o custo por PH/s enquanto o pagamento da plataforma de destino permanece o mesmo.
+
 ## Consequência para o teto de lance
 
 Como o pagamento da RentalHash varia por conta, nível de fidelidade e tipo de conexão, o teto de lance é **calculado na execução**, não memorizado:
