@@ -11,6 +11,8 @@ Sem data de observação, não use a linha como autorização de mutação.
 - A tela não quantifica a trava de redução. Regra relatada pelo operador em 2026-10-14: **redução de até US$ 0,10 por vez, com intervalo mínimo de cerca de 10 minutos entre reduções**. Reconferir no formulário a cada tentativa; se houver espera, feche sem salvar e registre quando poderá consultar de novo.
 - O mesmo formulário mostra, em texto, o **menor lance que entrega o limite contratado** para aquele tamanho. É a referência imediata de disputa de preço; continua sendo necessário comparar com o teto econômico.
 - Aumentar o limite de PH/s sem conferir a prévia de entrega para o novo tamanho é ação diferente de ajustar o lance: capacidade para o tamanho atual não comprova capacidade para o novo.
+- A confirmação final do ajuste **não é um botão da página: é um diálogo nativo do navegador** (`alertdialog`), que repete o resumo — inclusive o aviso "Reduzir tem intervalo de espera". Ele se resolve aceitando o diálogo pelo mecanismo de tratamento de diálogos do ambiente; clicar numa coordenada ou procurar um botão dentro dele não funciona, e o formulário fica pendurado até lá. Depois de aceitar, a mudança vale no próximo tick: a releitura imediata pode ainda mostrar o lance antigo.
+- A lista de ordens lida pelo HTML autenticado da mesma origem traz lance, situação, entrega, custo por dia e saldo restante de cada ordem — serve para conferir antes e depois e para a rodada que não consegue pintar a tela. **Não substitui abrir o formulário de ajuste**: passo, precisão, menor valor aceito e intervalo de espera só existem lá, e são eles que autorizam o envio.
 
 ## HashSell: mínimo de lance ao criar ordem
 
