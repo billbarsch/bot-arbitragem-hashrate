@@ -12,6 +12,13 @@ Sem data de observação, não use a linha como autorização de mutação.
 - O mesmo formulário mostra, em texto, o **menor lance que entrega o limite contratado** para aquele tamanho. É a referência imediata de disputa de preço; continua sendo necessário comparar com o teto econômico.
 - Aumentar o limite de PH/s sem conferir a prévia de entrega para o novo tamanho é ação diferente de ajustar o lance: capacidade para o tamanho atual não comprova capacidade para o novo.
 
+## HashSell: mínimo de lance ao criar ordem
+
+- O **mínimo aceito no formulário de nova ordem é o próprio hashprice do minuto**. Um lance abaixo disso recebe a mensagem de recusa "below the market minimum price" e o botão de criação fica desabilitado: não existe lance mais barato que o hashprice.
+- Quando o mercado tem capacidade sobrando, o **preço de corte não aparece** ("nenhum valor"), e a tela informa que qualquer lance acima do mínimo é atendido. Nesse estado, o hashprice é a referência que vale; quando houver corte, o corte passa a valer e vence o maior dos dois.
+- Convenção de preço definida pelo operador em 2026-10-14: **criar a ordem com a referência vigente somada de US$ 0,05 por PH/s/dia** — o mais perto do piso que a plataforma aceita. O objetivo é comprar potência o mais barato possível, porque a margem vem da diferença para o pagamento da plataforma de destino, e a entrega se corrige depois com ajuste de lance autorizado.
+- O resumo do formulário mostra "Seu lance está na mesma faixa do hashprice" quando o lance ficou no piso, e a duração estimada **já inclui a taxa de consumo**: o valor da ordem se divide em compra de velocidade + taxa. Confira a duração contra a cobertura exigida antes de criar.
+
 ## HashSell: cobrança
 
 - A cobrança incide sobre o **entregue**, não sobre o reservado pelo leilão. Amostras em que a pool não respondeu geram cobrança menor e também receita menor na plataforma de destino.

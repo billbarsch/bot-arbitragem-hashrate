@@ -24,6 +24,8 @@ O teto operacional é o menor entre esse teto econômico e o teto de lance autor
 
 Preço alvo de entrega: `referencia_entrega + incremento_autorizado`, arredondado para a precisão aceita. Use o mínimo para o tamanho solicitado quando disponível; caso contrário, a referência atual de corte. Sem corte, avalie a indicação de capacidade e a prévia da ordem; hashprice sozinho não prova o piso de entrega. Se o preço necessário superar o teto, não aumente o lance.
 
+Na **criação** de uma ordem nova, a referência é a que a plataforma está obrigando naquele minuto: `max(hashprice, preco_de_corte)` — onde corte existe — somada do incremento do usuário. Com capacidade sobrando não há corte, então o piso é o hashprice. Como a margem cresce conforme o lance cai e a entrega se ajusta depois, o alvo de criação é o piso mais o incremento, nunca um valor escolhido "por segurança" acima dele.
+
 ## Crédito e duração
 
 Para entrega constante e taxa adicional sobre consumo:
